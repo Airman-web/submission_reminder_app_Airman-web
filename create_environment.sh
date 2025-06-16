@@ -65,6 +65,32 @@ if [[ -d "$main_dir" ]]; then
 fi
 mkdir -p "$main_dir"
 
+#Create subdirectories
+echo "creating subdirectories..."
+mkdir -p "$main_dir/app"
+mkdir -p "$main_dir/modules"
+mkdir -p "$main_dir/assets"
+mkdir -p "$main_dir/config"
+
+echo "Created: $main_dir/app"
+echo "Created: $main_dir/modules"
+echo "Created: $main_dir/assets"
+echo "Created: $main_dir/config"
+
+#Copy files to their respective directories
+echo 
+echo "Organizing files into directory structure..."
+
+#Copy config.env to config directory
+cat <<EOF >> $main_dir/config/config.env
+# This is the config file
+ASSIGNMENT="Shell Navigation"
+DAYS_REMAINING=2
+EOF
+
+
+
+
 
 
 
