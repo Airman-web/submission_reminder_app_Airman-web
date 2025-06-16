@@ -7,43 +7,6 @@ echo "==Submission Reminder App Setup=="
 echo "This Script will create the directory structure and organize your existing files"
 echo 
 
-#Check if all required files exists in the directory
-required_files=("subimissions.txt" "config.env" "startup.sh" "reminder.sh" "functions.sh")
-missing_files=()
-
-echo "Checking for required files in current directory..."
-sleep 1
-for file in "${required_files[@]}"; do 
-	if [[ -f "$file" ]]; then 
-		echo " found $file"
-	else 
-		echo " Error Missing: $file"
-		missing_files+=("$file")
-	fi
-done
-
-#Exist if files are missing
-if [[ ${#missing_files[@]} -gt 0 ]]; then
-	echo "Error: The following files are missing from the current directorie:"
-	for file in "${missing_files[@]}"; do 
-	echo " - $file"
-done
-echo
-echo "Required files for the app:"
-echo " - submissions.txt (student submission records)"
-echo " - config.env (application configuration)"
-echo " - startup.sh (main startup script)"
-echo " - reminder.sh (reminder logic script)"
-echo " - functions.sh (helper functions script)"
-echo
-exit 1
-
-fi
-echo 
-sleep 1
-echo "All required files found!"
-echo
-
 #prompt the user for their name
 read -p "Please enter your name: " user_name
 
@@ -82,14 +45,14 @@ echo
 echo "Organizing files into directory structure..."
 
 #Copy config.env to config directory
-cat <<EOF >> "$main_dir/config/config.env"
+cat <<"EOF" >> "$main_dir/config/config.env"
 # This is the config file
 ASSIGNMENT="Shell Navigation"
 DAYS_REMAINING=2
 EOF
 
 #Copy functions.sh into modules directory
-cat <<EOF >> "$main_dir/modules/fucntions.sh"
+cat <<"EOF" >> "$main_dir/modules/fucntions.sh"
 #!/bin/bash
 
 # Function to read submissions file and output students who have not submitted
@@ -113,7 +76,7 @@ function check_submissions {
 EOF
 
 #Copy submissions.txt into assets directory
-cat <<EOF >> "$main_dir/submissions.txt/assets"
+cat <<"EOF" >> "$main_dir/submissions.txt/assets"
 student, assignment, submission status
 Chinemerem, Shell Navigation, not submitted
 Chiagoziem, Git, submitted
@@ -137,7 +100,7 @@ Kevin Anderson,Science Project,submitted
 EOF
 
 #Copy reminder.sh into app
-cat <<EOF >> "$main_dir/reminder.sh/app"
+cat <<"EOF" >> "$main_dir/reminder.sh/app"
 #!/bin/bash
 
 # Source environment variables and helper functions
@@ -155,6 +118,50 @@ echo "--------------------------------------------"
 check_submissions $submissions_file
 EOF
 
+#Make scripts with .sh executable
+echo 
+echo "Making all .sh files executable..."
+sleep 1
+find "$main_dir" -name "*.sh" -type f -exec chmod +x {} \;
+
+#Verify if all files are in place
+echo
+echo "Verification - checking if all files are in correct locations:"
+files_to_check=(
+	"$main_dir/config/config.env"
+	"$main_dir/modules/function.sh"
+	"$main_dir/assets/submissions.txt"
+	"$main_dir/app/startup.sh"
+	"$main_dir/app/reminder.sh"
+)
+
+all_files_ok=true
+for file in "{$files_to_check[@]}"; do
+	if [[ -f "$file" ]]; then
+		echo "file"
+	else echo "file (MISSING!)"
+		all_files_ok=false
+	fi 
+
+done
+
+if [[ "$all_files_ok" == true ]]; then
+	echo "Ready to test the application!"
+	echo
+	echo "To run your app:"
+	echo "1. cd $main_dir/app"
+	echo "2. ./startup.sh"
+	echo
+	echo "To change assignments later."	
+	echo  "1. Run the copilot_shell_script.sh from the main directory"
+	echo 
+	echo "All the files have been organized and made executable!"
+else 
+	echo "Some files may not haqve been copied correctly. Please check manually."
+fi
+echo 
+echo "Original files remain in the current directory (not deleted)"
+echo "Your organized app is ready in: $main_dir"
 
 
 
