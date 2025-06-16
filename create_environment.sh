@@ -12,15 +12,20 @@ required_files=("subimissions.txt" "config.env" "startup.sh" "reminder.sh" "func
 missing_files=()
 
 echo "Checking for required files in current directory..."
+sleep 1
 for file in "${required_files[@]}"; do 
 	if [[ -f "$file" ]]; then 
 		echo " found $file"
-	else " Error Missing: $file"
+	else 
+		echo " Error Missing: $file"
 		missing_files+=("$file")
 	fi
 done
+
 #Exist if files are missing
-if [[ ${missing_files[@]}"; do
+if [[ ${#missing_files[@]} -gt 0 ]]; then
+	echo "Error: The following files are missing from the current directorie:"
+	for file in "${missing_files[@]}"; do 
 	echo " - $file"
 done
 echo
@@ -31,7 +36,39 @@ echo " - startup.sh (main startup script)"
 echo " - reminder.sh (reminder logic script)"
 echo " - functions.sh (helper functions script)"
 echo
-echo "Please make sure all these files are in the same directory as create_environment.sh"
+exit 1
+
+fi
+echo 
+sleep 1
+echo "All required files found!"
+echo
+
+#prompt the user for their name
+read -p "Please enter your name: " user_name
+
+#validate name input
+if [[ -z "$user_name" ]]; then
+	echo "Error: Name cannot be empty! "
+	exit 1
+fi
+
+#Create the main directory
+main_dir="submission_reminder_${user_name}"
+echo "Creating main directory...: $main_dir"
+sleep 1
+
+#Remove directory if it already exsits
+if [[ -d "$main_dir" ]]; then
+       echo "Directory $main_dir already exists. Removing it..."
+        rm -rf "$main_dir"  
+fi
+mkdir -p "$main_dir"
+
+
+
+
+
 
 
 
