@@ -3,7 +3,7 @@
 #Task 1, set up script for script for submission reminder app
 #This script will create the directory structure and organize the exisitng files
 
-echo "==Submission Reminder App Setup=="
+echo -e "\e[0;32m==Submission Reminder App Setup==\e[0m "
 echo "This Script will create the directory structure and organize your existing files"
 echo
 
@@ -153,7 +153,6 @@ all_files_ok=true
 for file in "{$files_to_check[@]}"; do
 	if [[ -f "$file" ]]; then
 		echo "file"
-	else echo "file (MISSING!)"
 		all_files_ok=false
 	fi
 
@@ -166,22 +165,21 @@ chmod 777 $main_dir/app/reminder.sh
 chmod 777 $main_dir/config/config.env
 chmod 777 $main_dir/assets/submissions.txt
 
-if [[ "$all_files_ok" == true ]]; then
-	echo "Ready to test the application!"
-	echo""
-	echo "To run your app:"
-	echo "1. cd $main_dir/app"
-	echo "2. ./startup.sh"
-	echo ""
-	echo "To change assignments later."
-	echo  "1. Run the copilot_shell_script.sh from the main directory"
-	echo ""
-	echo "All the files have been organized and made executable!"
-else
-	echo "Some files may not haqve been copied correctly. Please check manually."
-fi
+	if [[ "$all_files_ok" == true ]]; then
+		echo "Ready to test the application!"
+		echo""
+		echo "To run your app:"
+		echo "1. cd $main_dir/app"
+		echo "2. ./startup.sh"
+		echo ""
+		echo "To change assignments later."
+		echo  "1. Run the copilot_shell_script.sh from the main directory"
+		echo ""
+		echo "All the files have been organized and made executable!"
+
+	fi
+
 echo ""
-echo "Original files remain in the current directory (not deleted)"
 echo "Your organized app is ready in: $main_dir"
 
 
