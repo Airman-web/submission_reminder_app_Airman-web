@@ -1,20 +1,21 @@
 student, assignment, submission status
 Chinemerem, Shell Navigation, not submitted
 Chiagoziem, Git, submitted
+Helen, Git, not submitted
 Divine, Shell Navigation, not submitted
 Anissa, Shell Basics, submitted
-John Smith, Math Homework,submitted
-Jane Doe, Math Homework,not submitted
-Mike Johnson, Math Homework,submitted
-Sarah Wilson, Math Homework,not submitted
-Tom Brown, Math Homework,submitted
-Alice Cooper, Math Homework,not submitted
-Bob Davis, Math Homework,submitted
-Emma Thompson, Math Homework,not submitted
-Ryan Garcia, Math Homework,submitted
-Lisa Martinez, Math Homework,not submitted
-David Lee, Science Project,submitted
-Mary Jones, Science Project,not submitted
-Chris Taylor, Science Project,submitted
-Jennifer White, Science Project,not submitted
-Kevin Anderson, Science Project,submitted
+John Smith, Math Homework, submitted
+Jane Doe, Math Homework, not submitted
+Mike Johnson, Math Homework, submitted
+Sarah Wilson, Math Homework, not submitted
+Tom Brown, Math Homework, submitted
+Alice Cooper, Math Homework, not submitted
+Bob Davis, Math Homework, submitted
+Emma Thompson, Math Homework, not submitted
+Ryan Garcia, Math Homework, submitted
+Lisa Martinez, Math Homework, not submitted
+David Lee, Science Project, submitted
+Mary Jones, Science Project, not submitted
+Chris Taylor, Science Project, submitted
+Jennifer White, Science Project, not submitted
+Kevin Anderson, Science Project, submitted
