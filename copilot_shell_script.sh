@@ -119,7 +119,6 @@ while true; do
         if [[ "$run_check" =~ ^[Yy]$ ]]; then
 
             # Run the startup script
-            SCRIPT_DIR=$(dirname "$(realpath "$0")")
             cd $SCRIPT_DIR/$main_dir
 
             ./startup.sh
