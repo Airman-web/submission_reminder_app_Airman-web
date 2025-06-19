@@ -11,10 +11,10 @@ echo
 read -p "Please enter your name: " user_name
 
 #validate name input
-if [[ -z "$user_name" ]]; then
-	echo "Error: Name cannot be empty! "
-	exit 1
-fi
+while [[ -z "$user_name" ]]; do
+	echo -e "\e[0;31mError: Name cannot be empty!\e[0m "
+	read -p "Please enter your name: " user_name
+done
 
 #Create the main directory
 main_dir="submission_reminder_${user_name}"
@@ -30,18 +30,23 @@ mkdir -p "$main_dir"
 
 #Create subdirectories
 echo "creating subdirectories..."
+echo ""
 mkdir -p "$main_dir/app"
 mkdir -p "$main_dir/modules"
 mkdir -p "$main_dir/assets"
 mkdir -p "$main_dir/config"
 
-echo "Created: $main_dir/app"
-echo "Created: $main_dir/modules"
-echo "Created: $main_dir/assets"
-echo "Created: $main_dir/config"
+echo -e "\e[0;32mSuccessfully Created:\e[0m $main_dir/app"
+echo ""
+echo -e "\e[0;32mSuccessfully Created:\e[0m $main_dir/modules"
+echo ""
+echo -e "\e[0;32mSuccessfully Created:\e[0m $main_dir/assets"
+echo ""
+echo -e "\e[0;32mSuccessfully Created:\e[0m $main_dir/config"
+echo""
 
 #Copy files to their respective directories
-echo 
+echo ""
 echo "Organizing files into directory structure..."
 
 #Copy config.env to config directory
@@ -76,7 +81,7 @@ function check_submissions {
 EOF
 
 #Copy submissions.txt into assets directory
-cat <<"EOF" >> "$main_dir/submissions.txt/assets"
+cat <<"EOF" >> "$main_dir/assets/submissions.txt"
 student, assignment, submission status
 Chinemerem, Shell Navigation, not submitted
 Chiagoziem, Git, submitted
@@ -100,7 +105,7 @@ Kevin Anderson,Science Project,submitted
 EOF
 
 #Copy reminder.sh into app
-cat <<"EOF" >> "$main_dir/reminder.sh/app"
+cat <<"EOF" >> "$main_dir/app/reminder.sh"
 #!/bin/bash
 
 # Source environment variables and helper functions
@@ -118,6 +123,12 @@ echo "--------------------------------------------"
 check_submissions $submissions_file
 EOF
 
+# FIXED: Create startup.sh BEFORE making files executable
+cat > "${main_dir}/startup.sh" << 'EOF'
+#!/bin/bash
+./app/reminder.sh
+EOF
+
 #Make scripts with .sh executable
 echo 
 echo "Making all .sh files executable..."
@@ -125,7 +136,7 @@ sleep 1
 find "$main_dir" -name "*.sh" -type f -exec chmod +x {} \;
 
 #Verify if all files are in place
-echo
+echo ""
 echo "Verification - checking if all files are in correct locations:"
 files_to_check=(
 	"$main_dir/config/config.env"
@@ -147,19 +158,19 @@ done
 
 if [[ "$all_files_ok" == true ]]; then
 	echo "Ready to test the application!"
-	echo
+	echo""
 	echo "To run your app:"
 	echo "1. cd $main_dir/app"
 	echo "2. ./startup.sh"
-	echo
+	echo ""
 	echo "To change assignments later."	
 	echo  "1. Run the copilot_shell_script.sh from the main directory"
-	echo 
+	echo "" 
 	echo "All the files have been organized and made executable!"
 else 
 	echo "Some files may not haqve been copied correctly. Please check manually."
 fi
-echo 
+echo "" 
 echo "Original files remain in the current directory (not deleted)"
 echo "Your organized app is ready in: $main_dir"
 
