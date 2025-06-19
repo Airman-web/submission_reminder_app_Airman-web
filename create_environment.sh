@@ -5,7 +5,7 @@
 
 echo "==Submission Reminder App Setup=="
 echo "This Script will create the directory structure and organize your existing files"
-echo 
+echo
 
 #prompt the user for their name
 read -p "Please enter your name: " user_name
@@ -24,7 +24,7 @@ sleep 1
 #Remove directory if it already exsits
 if [[ -d "$main_dir" ]]; then
        echo "Directory $main_dir already exists. Removing it..."
-        rm -rf "$main_dir"  
+        rm -rf "$main_dir"
 fi
 mkdir -p "$main_dir"
 
@@ -57,7 +57,7 @@ DAYS_REMAINING=2
 EOF
 
 #Copy functions.sh into modules directory
-cat <<"EOF" >> "$main_dir/modules/fucntions.sh"
+cat <<"EOF" >> "$main_dir/modules/functions.sh"
 #!/bin/bash
 
 # Function to read submissions file and output students who have not submitted
@@ -130,19 +130,21 @@ cat > "${main_dir}/startup.sh" << 'EOF'
 EOF
 
 #Make scripts with .sh executable
-echo 
+echo
 echo "Making all .sh files executable..."
 sleep 1
 find "$main_dir" -name "*.sh" -type f -exec chmod +x {} \;
+
+
 
 #Verify if all files are in place
 echo ""
 echo "Verification - checking if all files are in correct locations:"
 files_to_check=(
 	"$main_dir/config/config.env"
-	"$main_dir/modules/function.sh"
+	"$main_dir/modules/functions.sh"
 	"$main_dir/assets/submissions.txt"
-	"$main_dir/app/startup.sh"
+	"$main_dir/startup.sh"
 	"$main_dir/app/reminder.sh"
 )
 
@@ -152,9 +154,16 @@ for file in "{$files_to_check[@]}"; do
 		echo "file"
 	else echo "file (MISSING!)"
 		all_files_ok=false
-	fi 
+	fi
 
 done
+
+chmod 777 $main_dir/startup.sh
+chmod 777 $main_dir/modules/functions.sh
+chmod 777 $main_dir/app/reminder.sh
+
+chmod 777 $main_dir/config/config.env
+chmod 777 $main_dir/assets/submissions.txt
 
 if [[ "$all_files_ok" == true ]]; then
 	echo "Ready to test the application!"
@@ -163,14 +172,14 @@ if [[ "$all_files_ok" == true ]]; then
 	echo "1. cd $main_dir/app"
 	echo "2. ./startup.sh"
 	echo ""
-	echo "To change assignments later."	
+	echo "To change assignments later."
 	echo  "1. Run the copilot_shell_script.sh from the main directory"
-	echo "" 
+	echo ""
 	echo "All the files have been organized and made executable!"
-else 
+else
 	echo "Some files may not haqve been copied correctly. Please check manually."
 fi
-echo "" 
+echo ""
 echo "Original files remain in the current directory (not deleted)"
 echo "Your organized app is ready in: $main_dir"
 

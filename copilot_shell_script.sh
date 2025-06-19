@@ -6,7 +6,7 @@
 prompt_exit() {
     echo ""
     read -p "Do you want to exit the application? (y/n): " exit_choice
-    
+
     if [[ "$exit_choice" =~ ^[Yy]$ ]]; then
         echo ""
         echo -e "\e[0;32mThank you for using the Assignment Update Tool!\e[0m"
@@ -35,7 +35,7 @@ find_app_directory() {
             break
         fi
     done
-    
+
     echo "$main_dir"
 }
 
@@ -86,7 +86,7 @@ while true; do
             prompt_exit
             continue  # Go back to the beginning of this inner loop
         fi
-        
+
         break  # Exit the inner loop if input is valid
     done
 
@@ -110,36 +110,25 @@ while true; do
     echo ""
 
     # Ask if user wants to run the reminder check
+
     while true; do
         read -p "Would you like to run the reminder check for the new assignment? (y/n): " run_check
-        
-        if [[ "$run_check" =~ ^[Yy]$ ]]; then
-            echo ""
-            echo "Running reminder check for '$new_assignment'..."
-            echo "=================================="
 
-            # Change to app directory and run startup script
-            cd "$main_dir/app" || {
-                echo -e "\e[0;31mError: Cannot navigate to app directory\e[0m"
-                prompt_exit
-                break
-            }
+        if [[ "$run_check" =~ ^[Yy]$ ]]; then
 
             # Run the startup script
-            ./startup.sh
+            SCRIPT_DIR=$(dirname "$(realpath "$0")")
+            cd $main_dir
 
-            echo ""
-            echo "Reminder check completed!"
+            ./startup.sh
             break
-        elif [[ "$run_check" =~ ^[Nn]$ ]]; then
-            echo "Reminder check skipped. You can run it manually later by:"
-            echo "  cd $main_dir/app"
-            echo "  ./startup.sh"
-            break
+
         else
-            echo -e "\e[0;33mInvalid input. Please enter 'y' for yes or 'n' for no.\e[0m"
-            prompt_exit
+            echo "Reminder check skipped. You can run it manually later by:"
+            echo "  cd $main_dir"
+            echo "  ./startup.sh"
         fi
+
     done
 
     echo ""
@@ -156,7 +145,7 @@ while true; do
     # Ask if user wants to update another assignment or exit
     echo ""
     read -p "Would you like to update another assignment? (y/n): " continue_choice
-    
+
     if [[ "$continue_choice" =~ ^[Yy]$ ]]; then
         echo ""
         echo "Starting new assignment update..."
