@@ -120,7 +120,7 @@ while true; do
 
             # Run the startup script
             SCRIPT_DIR=$(dirname "$(realpath "$0")")
-            cd $main_dir
+            cd $SCRIPT_DIR/$main_dir
 
             ./startup.sh
             break
