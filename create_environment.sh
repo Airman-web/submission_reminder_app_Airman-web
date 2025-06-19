@@ -131,11 +131,10 @@ cat > "${main_dir}/startup.sh" << 'EOF'
 EOF
 
 #Make scripts with .sh executable
-echo
+echo ""
 echo "Making all .sh files executable..."
 sleep 1
 find "$main_dir" -name "*.sh" -type f -exec chmod +x {} \;
-
 
 all_files_ok=true
 for file in "{$files_to_check[@]}"; do
