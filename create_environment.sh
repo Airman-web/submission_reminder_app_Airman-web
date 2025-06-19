@@ -137,18 +137,6 @@ sleep 1
 find "$main_dir" -name "*.sh" -type f -exec chmod +x {} \;
 
 
-
-#Verify if all files are in place
-echo ""
-echo "Verification - checking if all files are in correct locations:"
-files_to_check=(
-	"$main_dir/config/config.env"
-	"$main_dir/modules/functions.sh"
-	"$main_dir/assets/submissions.txt"
-	"$main_dir/startup.sh"
-	"$main_dir/app/reminder.sh"
-)
-
 all_files_ok=true
 for file in "{$files_to_check[@]}"; do
 	if [[ -f "$file" ]]; then
@@ -166,21 +154,14 @@ chmod 777 $main_dir/config/config.env
 chmod 777 $main_dir/assets/submissions.txt
 
 	if [[ "$all_files_ok" == true ]]; then
-		echo "Ready to test the application!"
 		echo""
-		echo "To run your app:"
-		echo "1. cd $main_dir/app"
-		echo "2. ./startup.sh"
-		echo ""
-		echo "To change assignments later."
-		echo  "1. Run the copilot_shell_script.sh from the main directory"
-		echo ""
 		echo "All the files have been organized and made executable!"
 
 	fi
 
 echo ""
 echo "Your organized app is ready in: $main_dir"
+echo ""
 
 
 
