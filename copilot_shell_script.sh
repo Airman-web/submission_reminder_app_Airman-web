@@ -56,8 +56,10 @@ fi
 
 echo "Found app directory: $main_dir"
 
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
 # Check if config file exists
-CONFIG_FILE="$main_dir/config/config.env"
+CONFIG_FILE="$SCRIPT_DIR/$main_dir/config/config.env"
 if [[ ! -f "$CONFIG_FILE" ]]; then
     echo -e "\e[0;31mError: Configuration file not found at $CONFIG_FILE\e[0m"
     prompt_exit
