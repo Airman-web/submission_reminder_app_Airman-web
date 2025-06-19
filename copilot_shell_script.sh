@@ -20,6 +20,7 @@ find_app_directory() {
 	echo "$main_dir"
 }
 # Find the app directory
+main_dir=$(find_app_directory)
 
 if [[ -z "$main_dir" ]]; then
     echo -e "\e[0;31mError: No submission reminder app directory found!\e[0m"
@@ -59,6 +60,7 @@ fi
 
 # Update the config file using sed
 echo " Updating assignment name..."
+sleep 1
 sed -i "s/^ASSIGNMENT=.*/ASSIGNMENT=\"$new_assignment\"/" "$CONFIG_FILE"
 
 # Verify the change was made
@@ -70,7 +72,7 @@ else
     exit 1
 fi
 
-echo""
+echo ""
 echo "Updated configuration:"
 cat "$CONFIG_FILE"
 echo ""
@@ -92,7 +94,8 @@ if [[ "$run_check" =~ ^[Yy]$ ]]; then
     # Run the startup script
     ./startup.sh
 
-    echo
+    echo ""
+    sleep 1
     echo " Reminder check completed!"
 else
     echo " Reminder check skipped. You can run it manually later by:"
@@ -100,7 +103,7 @@ else
     echo "   ./startup.sh"
 fi
 
-echo
+echo ""
 echo -e "\e[0;32mAssignment update process completed!\e[0m"
 echo ""
 echo " Tips:"
